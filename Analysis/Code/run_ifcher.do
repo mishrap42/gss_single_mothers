@@ -40,6 +40,7 @@ save "`INTERDIR'/gss_clean.dta", replace
 
 */
 
+/*
 *ADJUST VARS AND NAMES
 use "`INTERDIR'/gss_clean.dta"
 rename form FORM
@@ -121,3 +122,23 @@ label values single_mother single_mother_label
 tab single_mother
 
 save "`INTERDIR'/gss_ifcher_data.dta", replace
+*/
+
+* MEAN COMPARISONS
+use "`INTERDIR'/gss_ifcher_data.dta"
+
+generate women_except_single = 0
+replace women_except_single = 1 if single_mother == 0 & sex == 2
+
+generate single_childless = 0
+replace single_childless = 1 if marital > 1 & babies + preteen + teens < 1 & sex == 2
+
+generate married_mothers = 0
+replace married_mothers = 1 if marital == 1 & babies + preteen + teens  > 0 & sex == 2
+
+mean faminc, over(single_mother)
+
+mean happy, over(single_mother)
+
+ttest happy, by(single_mother)
+
