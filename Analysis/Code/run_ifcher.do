@@ -16,7 +16,7 @@ if "`c(username)'"=="prakashmishra"{
 	local PROJECTDIR "/Users/prakashmishra/Documents/JrSem1/Ben/gss_single_mothers/"
 }
 else if "`c(username)'"=="benlockwood" | "`c(username)'"=="benlo" {
-	local PROJECTDIR "~/Dropbox/Research/github_repositories/github_PresentBiasDynamics" 
+	local PROJECTDIR "~/Dropbox/Research/github_repositories/github_LaborHappiness" 
 }
 
 cd `PROJECTDIR'/Analysis/Code/
@@ -142,3 +142,14 @@ mean happy, over(single_mother)
 
 ttest happy, by(single_mother)
 
+* REPLICATE IFCHER FIGURE 1
+
+keep if sex == 2 // keep women
+sort year single_mother
+collapse (mean) happy faminc income, by(year single_mother)
+twoway (line happy year if single_mother) (line happy year if !single_mother), ///
+	legend(lab(1 "Single mothers") lab(2 "Women who aren't single mothers")) ///
+	ylab(1.5(.1)2.5)
+
+twoway (line income year if single_mother) (line income year if !single_mother), ///
+	legend(lab(1 "Single mothers") lab(2 "Women who aren't single mothers")) 
