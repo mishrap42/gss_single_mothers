@@ -40,7 +40,7 @@ save "`INTERDIR'/gss_clean.dta", replace
 
 */
 
-/*
+
 *ADJUST VARS AND NAMES
 use "`INTERDIR'/gss_clean.dta"
 rename form FORM
@@ -122,7 +122,7 @@ label values single_mother single_mother_label
 tab single_mother
 
 save "`INTERDIR'/gss_ifcher_data.dta", replace
-*/
+
 
 * MEAN COMPARISONS
 use "`INTERDIR'/gss_ifcher_data.dta"
